@@ -1,0 +1,292 @@
+const nodes = [
+  {id:'chips',name:'Northstar Semiconductors',detail:'Taiwan | Microchips',type:'supplier',x:130,y:105,role:'Supplies microchips for AuroraSmart speakers.',stock:'18 days',backup:'ChipExpress Ltd.'},
+  {id:'casings',name:'Pacific Plastics',detail:'Vietnam | Casings',type:'supplier',x:125,y:350,role:'Makes the recycled plastic speaker casings.',stock:'22 days',backup:'EcoMould Australia'},
+  {id:'aurora',name:'Port Aurora',detail:'Australia | Main port',type:'port',x:390,y:235,role:'Normal arrival point for imported components.',stock:'N/A',backup:'Port Brilliant'},
+  {id:'brilliant',name:'Port Brilliant',detail:'Australia | Backup port',type:'port',x:425,y:390,role:'Backup port with road access to Brisbane.',stock:'N/A',backup:'Available'},
+  {id:'factory',name:'Aurora Assembly',detail:'Brisbane | Factory',type:'factory',x:650,y:235,role:'Builds AuroraSmart speakers from imported parts.',stock:'6 days',backup:'Extra shift available'},
+  {id:'warehouse',name:'East Coast Hub',detail:'Sydney | Warehouse',type:'warehouse',x:790,y:115,role:'Stores finished speakers before retail delivery.',stock:'12 days',backup:'Melbourne overflow'},
+  {id:'retail',name:'Retail Partners',detail:'Australia | Stores',type:'retail',x:800,y:360,role:'Receives speakers for customers and stores.',stock:'9 days',backup:'Priority allocation'}
+];
+
+const connections = [
+  ['chips','aurora'],
+  ['casings','aurora'],
+  ['aurora','factory'],
+  ['factory','warehouse'],
+  ['warehouse','retail'],
+  ['casings','brilliant'],
+  ['brilliant','factory']
+];
+
+const scenarios = {
+  normal:{
+    title:'Normal operations',
+    icon:'✓',
+    summary:'All usual routes are operating. Aurora Electronics can use its lowest-cost standard plan.',
+    affected:[],
+    impact:[
+      ['Supply chain is ready','All key locations are operating normally.','good'],
+      ['Products on schedule','AuroraSmart deliveries are expected on time.','good'],
+      ['Best choice','Use Port Aurora and standard ocean shipping.','good']
+    ],
+    plans:[
+      ['Normal route','Standard plan','Port Aurora to Brisbane factory.','$48,000','12 days','Low','recommended']
+    ]
+  },
+
+  port:{
+    title:'Port Aurora closure',
+    icon:'⚓',
+    summary:'Port Aurora is closed for 10 days after an industrial accident. Imported parts cannot be unloaded there.',
+    affected:['aurora','factory','warehouse','retail'],
+    impact:[
+      ['Port Aurora is blocked','No incoming components can unload at the main port.','critical'],
+      ['Factory may stop in 6 days','The Brisbane factory has only six days of chip stock.','warning'],
+      ['Orders may be late','Retail deliveries could be delayed unless a backup plan starts now.','warning']
+    ],
+    plans:[
+      ['Normal route','Unavailable','Port Aurora is closed.','$48,000','12 days','Low','unavailable'],
+      ['Port Brilliant backup','Recommended','Redirect ships to Port Brilliant, then truck parts to Brisbane.','$61,000','16 days','Medium','recommended'],
+      ['Emergency air freight','Fast option','Fly only urgent microchips to Brisbane.','$145,000','5 days','Low','']
+    ]
+  },
+
+  cyclone:{
+    title:'Cyclone near Port Aurora',
+    icon:'🌀',
+    summary:'A severe cyclone is expected near Port Aurora. Ships are delayed and road transport may be unreliable.',
+    affected:['aurora','factory'],
+    impact:[
+      ['Shipping delay likely','Port arrival times may extend by 5 to 8 days.','warning'],
+      ['Factory buffer is tight','Parts stock could run low before delayed ships arrive.','warning'],
+      ['Safety comes first','Do not rely on road transport until local conditions are clear.','critical']
+    ],
+    plans:[
+      ['Wait for Port Aurora','Lowest cost','Keep normal bookings and wait for the cyclone to pass.','$48,000','19 days','High',''],
+      ['Port Brilliant backup','Recommended','Move future ships to the backup port before they arrive.','$64,000','17 days','Medium','recommended'],
+      ['Air freight chips','Fast option','Protect urgent orders by flying a small chip shipment.','$145,000','5 days','Low','']
+    ]
+  },
+
+  supplier:{
+    title:'Microchip supplier outage',
+    icon:'◈',
+    summary:'Northstar Semiconductors has stopped production for two weeks after equipment failure.',
+    affected:['chips','factory','warehouse','retail'],
+    impact:[
+      ['Microchips unavailable','The main chip supplier cannot send new orders for two weeks.','critical'],
+      ['Factory may stop in 6 days','Existing component stock will run out quickly.','warning'],
+      ['Priority products need a plan','Only the most important speaker orders may be possible.','warning']
+    ],
+    plans:[
+      ['Wait for Northstar','Lowest cost','Resume normal orders when production restarts.','$48,000','26 days','High',''],
+      ['ChipExpress backup','Recommended','Buy compatible chips from an approved backup supplier.','$78,000','14 days','Medium','recommended'],
+      ['Redesign product','Long-term option','Use a different chip and update the product design.','$110,000','45 days','Medium','']
+    ]
+  },
+
+  road:{
+    title:'Brisbane road closure',
+    icon:'🚧',
+    summary:'Flooding has closed the main road between Port Brilliant and the Brisbane factory.',
+    affected:['brilliant','factory'],
+    impact:[
+      ['Backup route is limited','Trucks cannot use the usual Port Brilliant road connection.','critical'],
+      ['Main port still works','Port Aurora remains open, so normal ocean shipments can continue.','good'],
+      ['Keep backup capacity','A longer road route is possible but adds time and cost.','warning']
+    ],
+    plans:[
+      ['Normal Port Aurora route','Recommended','Continue the normal route through Port Aurora.','$48,000','12 days','Low','recommended'],
+      ['Longer road from Brilliant','Backup only','Use the inland road route from Port Brilliant.','$75,000','21 days','Medium',''],
+      ['Rail and truck combination','Alternative','Move containers by rail, then use local trucks.','$69,000','18 days','Medium','']
+    ]
+  },
+
+  flood:{
+    title:'Sydney warehouse flood',
+    icon:'🌧',
+    summary:'Floodwater has damaged part of the East Coast Hub. It cannot send normal retail deliveries.',
+    affected:['warehouse','retail'],
+    impact:[
+      ['Warehouse capacity reduced','Only 30% of normal stock can be picked and sent.','critical'],
+      ['Retail orders delayed','Stores may not receive their usual deliveries.','warning'],
+      ['Factory still produces','The Brisbane factory can keep building speakers.','good']
+    ],
+    plans:[
+      ['Use Melbourne overflow','Recommended','Send finished goods to the Melbourne overflow warehouse.','$72,000','15 days','Medium','recommended'],
+      ['Direct factory delivery','Fast option','Send urgent orders straight from Brisbane to selected stores.','$89,000','8 days','Low',''],
+      ['Wait for Sydney repair','Lowest cost','Hold stock until the warehouse reopens.','$48,000','20 days','High','']
+    ]
+  }
+};
+
+let active = 'normal';
+let selected = null;
+
+const byId = Object.fromEntries(nodes.map(n => [n.id, n]));
+const select = document.querySelector('#scenarioSelect');
+
+Object.entries(scenarios).forEach(([key, value]) => {
+  const o = document.createElement('option');
+  o.value = key;
+  o.textContent = value.title;
+  select.appendChild(o);
+});
+
+function escapeText(value) {
+  return String(value).replace(/[&<>]/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;'
+  }[c]));
+}
+
+function drawMap() {
+  const s = scenarios[active];
+  const svg = document.querySelector('#network');
+
+  svg.innerHTML = '<text class="water" x="600" y="65">Pacific Ocean</text>';
+
+  connections.forEach(([a, b]) => {
+    const A = byId[a];
+    const B = byId[b];
+    const blocked = s.affected.includes(a) || s.affected.includes(b);
+    const backup = a === 'brilliant' || b === 'brilliant';
+    const cls = blocked ? 'blocked' : backup ? 'backup' : 'active';
+
+    svg.insertAdjacentHTML(
+      'beforeend',
+      `<line class="line ${cls}" x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/>`
+    );
+  });
+
+  nodes.forEach(n => {
+    const affected = s.affected.includes(n.id);
+    const sel = selected === n.id;
+
+    svg.insertAdjacentHTML(
+      'beforeend',
+      `<g class="node ${n.type} ${affected ? 'affected' : ''} ${sel ? 'selected' : ''}" data-id="${n.id}">
+        <circle cx="${n.x}" cy="${n.y}" r="27"/>
+        <text x="${n.x}" y="${n.y + 5}" font-size="18">
+          ${n.type === 'port' ? '⚓' : n.type === 'factory' ? '⚙' : n.type === 'supplier' ? '◈' : n.type === 'warehouse' ? '▣' : '⌂'}
+        </text>
+        <text class="name" x="${n.x}" y="${n.y + 48}">${escapeText(n.name)}</text>
+        <text class="detail" x="${n.x}" y="${n.y + 63}">${escapeText(n.detail)}</text>
+      </g>`
+    );
+  });
+
+  svg.querySelectorAll('.node').forEach(el => {
+    el.addEventListener('click', () => {
+      selected = el.dataset.id;
+      render();
+    });
+  });
+}
+
+function renderDetails() {
+  const holder = document.querySelector('#nodeDetails');
+
+  if (!selected) {
+    holder.innerHTML = `
+      <h2>Choose a location</h2>
+      <p>Click any circle on the map to see what it does in the supply chain.</p>
+    `;
+    return;
+  }
+
+  const n = byId[selected];
+  const affected = scenarios[active].affected.includes(n.id);
+
+  holder.innerHTML = `
+    <h2>${n.name}</h2>
+    <p>${n.role}</p>
+    <div class="detail-grid">
+      <div>Location<b>${n.detail.split('|')[0]}</b></div>
+      <div>Status<b>${affected ? 'Affected' : 'Operating'}</b></div>
+      <div>Current stock<b>${n.stock}</b></div>
+      <div>Backup<b>${n.backup}</b></div>
+    </div>
+  `;
+}
+
+function render() {
+  const s = scenarios[active];
+  const isNormal = active === 'normal';
+
+  document.querySelector('#score').textContent =
+    isNormal ? '86' :
+    active === 'port' ? '42' :
+    active === 'supplier' ? '38' :
+    active === 'flood' ? '57' :
+    '64';
+
+  document.querySelector('#scoreWord').textContent =
+    isNormal ? 'Ready' : 'Needs action';
+
+  const sum = document.querySelector('#scenarioSummary');
+  sum.className = 'scenario-summary ' + (isNormal ? 'normal' : 'alert');
+
+  sum.innerHTML = `
+    <span class="icon">${s.icon}</span>
+    <div>
+      <h3>${s.title}</h3>
+      <p>${s.summary}</p>
+    </div>
+  `;
+
+  document.querySelector('#impactStatus').textContent =
+    isNormal ? 'Normal operations' : 'Disruption active';
+
+  document.querySelector('#impactStatus').className =
+    'status ' + (isNormal ? '' : 'alert');
+
+  document.querySelector('#mapNote').textContent =
+    isNormal
+      ? 'Blue lines show normal product movement. Select a disruption to see what changes.'
+      : 'Red dashed lines show affected routes. Orange dashed lines are backup routes.';
+
+  document.querySelector('#choiceHelp').textContent =
+    isNormal
+      ? 'The normal route is currently the lowest-cost choice.'
+      : 'Green border = RouteTwin recommended response.';
+
+  document.querySelector('#impactCards').innerHTML = s.impact.map(x => `
+    <article class="impact-card ${x[2]}">
+      <h3>${x[0]}</h3>
+      <p>${x[1]}</p>
+    </article>
+  `).join('');
+
+  document.querySelector('#planCards').innerHTML = s.plans.map(p => `
+    <article class="plan-card ${p[6]}">
+      <span class="tag">${p[1]}</span>
+      <h3>${p[0]}</h3>
+      <p>${p[2]}</p>
+      <div class="metrics">
+        <span>Cost<b>${p[3]}</b></span>
+        <span>Time<b>${p[4]}</b></span>
+        <span>Risk<b class="risk-${p[5].toLowerCase()}">${p[5]}</b></span>
+      </div>
+    </article>
+  `).join('');
+
+  drawMap();
+  renderDetails();
+}
+
+document.querySelector('#runButton').addEventListener('click', () => {
+  active = select.value;
+  selected = null;
+  render();
+});
+
+document.querySelector('#resetButton').addEventListener('click', () => {
+  active = 'normal';
+  select.value = 'normal';
+  selected = null;
+  render();
+});
+
+render();
