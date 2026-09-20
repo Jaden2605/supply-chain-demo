@@ -1,110 +1,177 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Business Name</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #10243c;
-      background: #f3f7fb;
-    }
-
-    header {
-      padding: 20px 10%;
-      color: white;
-      background: #071d35;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 70px 10%;
-    }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 15px;
-    }
-
-    h2 {
-      margin-top: 55px;
-      font-size: 28px;
-    }
-
-    p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 22px;
-      border-radius: 8px;
-      background: #1678c9;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .box {
-      margin-top: 20px;
-      padding: 25px;
-      border-radius: 12px;
-      background: white;
-    }
-
-    footer {
-      padding: 25px;
-      text-align: center;
-      color: #61788d;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RouteTwin is an early supply-chain disruption visualisation platform." />
+  <title>RouteTwin | Supply chain disruption, made visible</title>
+  <link rel="stylesheet" href="home.css" />
 </head>
-
 <body>
-  <header>
-    Your Business Name
+  <header class="site-header">
+    <a class="logo" href="index.html"><span>◈</span> RouteTwin</a>
+    <nav>
+      <a href="#how-it-works">How it works</a>
+      <a href="#vision">Vision</a>
+      <a class="nav-button" href="demo.html">Open demo</a>
+    </nav>
   </header>
 
   <main>
-    <h1>See supply-chain disruption before it becomes a bigger problem.</h1>
+    <section class="hero-home">
+      <div class="hero-copy">
+        <p class="eyebrow">Supply chain intelligence</p>
+        <h1>See disruption. Understand impact. Choose a response.</h1>
+        <p class="lead">
+          RouteTwin is an interactive supply-chain model that helps teams see
+          what a disruption affects and compare possible backup plans.
+        </p>
 
-    <p>
-      We are building an interactive tool that helps businesses understand
-      suppliers, ports, factories, warehouses, transport routes, and backup plans.
-    </p>
+        <div class="hero-actions">
+          <a class="primary-button" href="demo.html">
+            Try the interactive demo <span>→</span>
+          </a>
+          <a class="text-link" href="#how-it-works">See how it works</a>
+        </div>
 
-    <a class="button" href="demo.html">Try the interactive demo</a>
+        <p class="working-note">
+          Working business concept. Demonstration data is fictional.
+        </p>
+      </div>
 
-    <h2>How it works</h2>
+      <div class="hero-visual">
+        <div class="halo"></div>
 
-    <div class="box">
-      <p>
-        Choose a disruption, such as a port closure or supplier outage.
-        The system shows what is affected and compares possible backup plans
-        by time, cost, and risk.
+        <span class="path p1"></span>
+        <span class="path p2"></span>
+        <span class="path p3"></span>
+
+        <div class="location supplier">S<small>Supplier</small></div>
+        <div class="location port">P<small>Port</small></div>
+        <div class="location factory">F<small>Factory</small></div>
+        <div class="location retail">R<small>Retail</small></div>
+
+        <div class="signal">
+          <b>!</b>
+          <span>Risk signal</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-row">
+      <span>Designed for the future of supply-chain planning</span>
+      <div>
+        <b>SUPPLIERS</b>
+        <b>ROUTES</b>
+        <b>FACILITIES</b>
+        <b>SCENARIOS</b>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+      <p class="eyebrow">The product</p>
+      <h2>One clear view when the normal plan stops working</h2>
+
+      <p class="section-intro">
+        The first RouteTwin prototype uses a fictional electronics company to
+        show what decision support could look like.
       </p>
-    </div>
 
-    <h2>Our future vision</h2>
+      <div class="steps">
+        <article>
+          <span>01</span>
+          <h3>Map the chain</h3>
+          <p>
+            Bring suppliers, ports, factories, warehouses, and retailers into
+            one connected view.
+          </p>
+        </article>
 
-    <div class="box">
-      <p>
-        In the future, teams could explore the same supply-chain model together
-        using immersive 3D and hologram-table technology.
-      </p>
-    </div>
+        <article>
+          <span>02</span>
+          <h3>Test disruption</h3>
+          <p>
+            Choose a port closure, cyclone, supplier outage, road closure, or
+            warehouse flood.
+          </p>
+        </article>
+
+        <article>
+          <span>03</span>
+          <h3>Compare options</h3>
+          <p>
+            See affected routes and compare response plans by time, cost, and
+            risk.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="impact-section">
+      <div>
+        <p class="eyebrow">Why it matters</p>
+        <h2>Uncertainty creates delays. Clear information supports better decisions.</h2>
+      </div>
+
+      <div class="impact-list">
+        <p>
+          <b>What is affected?</b>
+          <span>See locations and routes at risk.</span>
+        </p>
+        <p>
+          <b>What can we do?</b>
+          <span>Compare available backup plans.</span>
+        </p>
+        <p>
+          <b>What is the trade-off?</b>
+          <span>Balance time, cost, and risk.</span>
+        </p>
+      </div>
+    </section>
+
+    <section id="vision" class="vision">
+      <div>
+        <p class="eyebrow">Future vision</p>
+        <h2>From browser-based model to a shared 3D planning experience</h2>
+
+        <p>
+          RouteTwin starts as clear web software. In the future, the same model
+          could be explored together on an immersive hologram table for
+          planning, training, and presentations.
+        </p>
+
+        <a class="secondary-button" href="demo.html">
+          Explore the current prototype
+        </a>
+      </div>
+
+      <div class="table-scene">
+        <div class="projection">
+          <i></i>
+          <i></i>
+          <i></i>
+          <b>Supply-chain model</b>
+        </div>
+
+        <div class="table-top"></div>
+        <div class="table-leg left"></div>
+        <div class="table-leg right"></div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <p class="eyebrow">Early-stage project</p>
+      <h2>RouteTwin is building a simpler way to prepare for supply-chain disruption.</h2>
+
+      <a class="primary-button" href="demo.html">
+        Launch the interactive demo <span>→</span>
+      </a>
+    </section>
   </main>
 
   <footer>
-    Early business prototype. Demo data is fictional.
+    <a class="logo" href="index.html"><span>◈</span> RouteTwin</a>
+    <p>Interactive supply-chain disruption prototype</p>
   </footer>
 </body>
 </html>
