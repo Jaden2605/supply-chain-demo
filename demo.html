@@ -3,18 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ChainSight Interactive Demo</title>
+  <title>RouteTwin Interactive Demo</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <div><span class="brand-mark">◈</span><span class="brand">ChainSight</span><span class="demo">INTERACTIVE DEMO</span></div>
+    <div>
+      <span class="brand-mark">◈</span>
+      <span class="brand">RouteTwin</span>
+      <span class="demo">INTERACTIVE DEMO</span>
+    </div>
     <p>Aurora Electronics | fictional demonstration data</p>
   </header>
+
   <main>
     <section class="hero">
-      <div><p class="eyebrow">Supply chain resilience simulator</p><h1>What happens when something breaks?</h1><p>Choose a disruption, see the effect on Aurora Electronics, and compare the safest way forward.</p></div>
-      <div class="score"><span>Resilience score</span><strong id="score">86</strong><small id="scoreWord">Ready</small></div>
+      <div>
+        <p class="eyebrow">Supply chain resilience simulator</p>
+        <h1>What happens when something breaks?</h1>
+        <p>Choose a disruption, see the effect on Aurora Electronics, and compare the safest way forward.</p>
+      </div>
+
+      <div class="score">
+        <span>Resilience score</span>
+        <strong id="score">86</strong>
+        <small id="scoreWord">Ready</small>
+      </div>
     </section>
 
     <section class="controls" aria-label="Simulation controls">
@@ -28,18 +42,72 @@
 
     <section class="layout">
       <section class="panel map-panel">
-        <div class="panel-head"><div><p class="eyebrow">Interactive network</p><h2>Click a location to inspect it</h2></div><div class="legend"><span><i class="supplier"></i> Supplier</span><span><i class="port"></i> Port</span><span><i class="factory"></i> Factory</span><span><i class="affected"></i> Affected</span></div></div>
-        <div class="map-wrap"><svg id="network" viewBox="0 0 900 480" role="img" aria-label="Aurora Electronics supply chain network"></svg></div>
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Interactive network</p>
+            <h2>Click a location to inspect it</h2>
+          </div>
+
+          <div class="legend">
+            <span><i class="supplier"></i> Supplier</span>
+            <span><i class="port"></i> Port</span>
+            <span><i class="factory"></i> Factory</span>
+            <span><i class="affected"></i> Affected</span>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <svg id="network" viewBox="0 0 900 480" role="img" aria-label="Aurora Electronics supply chain network"></svg>
+        </div>
+
         <p id="mapNote" class="map-note">Blue lines show normal product movement. Select a disruption to see what changes.</p>
       </section>
-      <aside class="panel node-panel"><p class="eyebrow">Location details</p><div id="nodeDetails"><h2>Choose a location</h2><p>Click any circle on the map to see what it does in the supply chain.</p></div></aside>
+
+      <aside class="panel node-panel">
+        <p class="eyebrow">Location details</p>
+        <div id="nodeDetails">
+          <h2>Choose a location</h2>
+          <p>Click any circle on the map to see what it does in the supply chain.</p>
+        </div>
+      </aside>
     </section>
 
-    <section class="panel results"><div class="panel-head"><div><p class="eyebrow">Impact assessment</p><h2>What is affected?</h2></div><span id="impactStatus" class="status">Normal operations</span></div><div id="impactCards" class="impact-cards"></div></section>
-    <section class="panel alternatives"><div class="panel-head"><div><p class="eyebrow">Decision support</p><h2>Available response plans</h2></div><p id="choiceHelp">Run a scenario to see which plan ChainSight recommends.</p></div><div id="planCards" class="plan-cards"></div></section>
-    <section class="how"><h2>How this works</h2><ol><li>Choose a common problem, such as a port closure or supplier outage.</li><li>ChainSight marks the affected parts of the network and explains the likely impact.</li><li>Compare response plans using time, cost, and risk, then choose the trade-off that fits the situation.</li></ol></section>
+    <section class="panel results">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Impact assessment</p>
+          <h2>What is affected?</h2>
+        </div>
+        <span id="impactStatus" class="status">Normal operations</span>
+      </div>
+
+      <div id="impactCards" class="impact-cards"></div>
+    </section>
+
+    <section class="panel alternatives">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Decision support</p>
+          <h2>Available response plans</h2>
+        </div>
+        <p id="choiceHelp">Run a scenario to see which plan RouteTwin recommends.</p>
+      </div>
+
+      <div id="planCards" class="plan-cards"></div>
+    </section>
+
+    <section class="how">
+      <h2>How this works</h2>
+      <ol>
+        <li>Choose a common problem, such as a port closure or supplier outage.</li>
+        <li>RouteTwin marks the affected parts of the network and explains the likely impact.</li>
+        <li>Compare response plans using time, cost, and risk, then choose the trade-off that fits the situation.</li>
+      </ol>
+    </section>
   </main>
+
   <footer>This is a learning prototype. The company, costs, routes, and scenarios are fictional.</footer>
+
   <script src="app.js"></script>
 </body>
 </html>
