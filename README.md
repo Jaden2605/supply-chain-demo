@@ -24,7 +24,7 @@ No installation is needed.
 ## Publish it on GitHub Pages
 
 1. Sign in to GitHub and create a new repository, such as `chainsight-interactive`.
-2. Upload everything inside this folder: `index.html`, `home.css`, `demo.html`, `styles.css`, `v2.css`, `app.js`, and this `README.md`.
+2. Upload everything inside this folder: `index.html`, `home.css`, `why-routetwin.html`, `pricing.html`, `business-pages.css`, `demo.html`, `styles.css`, `v2.css`, `app.js`, and this `README.md`.
 3. Open the repository **Settings**, then **Pages**.
 4. Under **Build and deployment**, select **Deploy from a branch**.
 5. Select the `main` branch and `/ (root)`, then save.
