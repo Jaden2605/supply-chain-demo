@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RouteTwin local workbook portal demo." />
+  <title>RouteTwin | Client portal demo</title>
+  <link rel="stylesheet" href="portal.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html"><span>◈</span> RouteTwin</a>
+    <p>Client portal <b>Demo</b></p>
+    <a href="demo.html">Interactive demo</a>
+  </header>
+
+  <main>
+    <section id="access-screen" class="access-screen">
+      <div class="access-card">
+        <p class="eyebrow">RouteTwin client portal</p>
+        <h1>Bring your supply-chain workbook to life.</h1>
+        <p>This demo reads a workbook on this device and creates a private dashboard view. It does not upload or store the file.</p>
+
+        <form id="access-form">
+          <label for="client-name">Your name</label>
+          <input id="client-name" type="text" placeholder="e.g. Mia Chen" required />
+
+          <label for="client-email">Work email</label>
+          <input id="client-email" type="email" placeholder="you@company.com" required />
+
+          <button type="submit">Enter demo portal <span>→</span></button>
+        </form>
+
+        <p class="privacy-note">Demo access only — this is not yet a secure customer login.</p>
+      </div>
+    </section>
+
+    <section id="portal" class="portal hidden">
+      <aside class="sidebar">
+        <a class="side-brand" href="index.html"><span>◈</span> RouteTwin</a>
+
+        <div class="client-card">
+          <span id="client-initial">R</span>
+          <div>
+            <b id="client-display">RouteTwin user</b>
+            <small>Demo workspace</small>
+          </div>
+        </div>
+
+        <nav>
+          <a class="active" href="#overview">Overview</a>
+          <a href="#upload">Workbook upload</a>
+          <a href="#data-check">Data check</a>
+        </nav>
+
+        <p class="side-note">Local demo mode<br />No client file is sent to a server.</p>
+      </aside>
+
+      <div class="workspace">
+        <section id="overview" class="workspace-header">
+          <div>
+            <p class="eyebrow">Supply-chain workspace</p>
+            <h1 id="company-title">Your RouteTwin overview</h1>
+            <p id="last-updated">Upload a completed RouteTwin workbook to begin.</p>
+          </div>
+
+          <span class="demo-pill">Local demo</span>
+        </section>
+
+        <section id="upload" class="upload-panel">
+          <div>
+            <p class="eyebrow">Step 1</p>
+            <h2>Upload your RouteTwin workbook</h2>
+            <p>Use the Aurora client workbook or a future client version with the same tab names.</p>
+          </div>
+
+          <label class="drop-zone" for="workbook-file">
+            <input id="workbook-file" type="file" accept=".xlsx,.xls" />
+            <span class="upload-icon">↑</span>
+            <b>Choose Excel workbook</b>
+            <small>Files stay on this device in demo mode</small>
+          </label>
+
+          <p id="upload-message" class="upload-message" role="status"></p>
+        </section>
+
+        <section class="metrics" aria-label="Supply chain summary">
+          <article>
+            <span>Locations</span>
+            <strong id="location-count">—</strong>
+            <small>supplier sites, ports, factories and warehouses</small>
+          </article>
+
+          <article>
+            <span>Routes</span>
+            <strong id="route-count">—</strong>
+            <small>current transport lanes</small>
+          </article>
+
+          <article>
+            <span>Approved backups</span>
+            <strong id="backup-count">—</strong>
+            <small>options that may be used after confirmation</small>
+          </article>
+
+          <article>
+            <span>Lowest stock cover</span>
+            <strong id="cover-count">—</strong>
+            <small>days before a component may run out</small>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <article id="data-check" class="panel">
+            <div class="panel-title">
+              <div>
+                <p class="eyebrow">Step 2</p>
+                <h2>Data check</h2>
+              </div>
+              <span id="check-status" class="status neutral">Waiting for workbook</span>
+            </div>
+
+            <ul id="check-list" class="check-list">
+              <li>Upload a workbook to check the required RouteTwin tabs.</li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <div class="panel-title">
+              <div>
+                <p class="eyebrow">Supply-chain model</p>
+                <h2>Locations loaded</h2>
+              </div>
+            </div>
+
+            <div id="location-list" class="location-list">
+              <p class="empty">No locations loaded yet.</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel next-panel">
+          <p class="eyebrow">Next stage</p>
+          <h2>Run a disruption scenario</h2>
+          <p>Once a workbook is loaded, the next RouteTwin build will use these routes, stock levels and approved backups to calculate the effect of a port closure or supplier failure.</p>
+          <a href="demo.html">Open Aurora interactive demo <span>→</span></a>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="portal.js"></script>
+</body>
+</html>
