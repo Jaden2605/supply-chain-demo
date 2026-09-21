@@ -4,10 +4,11 @@ This is a GitHub Pages-ready RouteTwin business homepage and interactive supply-
 
 ## What is interactive
 
-- Choose from eight disruption scenarios: port closure, cyclone, supplier outage, road closure, warehouse flood, cyberattack, fuel shortage, or supplier bankruptcy.
+- Choose from eight global disruption scenarios in Australia, Taiwan, Singapore, the Netherlands, Vietnam, Europe, and North America.
 - Click any supplier, port, factory, warehouse, or retailer to inspect its role, stock, status, and backup.
 - See affected routes and locations highlighted in red.
 - Compare response plans by cost, time, and risk. The recommended plan has a green border.
+- Change the fictional company name, download a Word-compatible professional scenario report, and view the six most recent simulations during the visit.
 
 ## Run it locally
 
@@ -23,7 +24,7 @@ No installation is needed.
 ## Publish it on GitHub Pages
 
 1. Sign in to GitHub and create a new repository, such as `chainsight-interactive`.
-2. Upload everything inside this folder: `index.html`, `home.css`, `demo.html`, `styles.css`, `app.js`, and this `README.md`.
+2. Upload everything inside this folder: `index.html`, `home.css`, `demo.html`, `styles.css`, `v2.css`, `app.js`, and this `README.md`.
 3. Open the repository **Settings**, then **Pages**.
 4. Under **Build and deployment**, select **Deploy from a branch**.
 5. Select the `main` branch and `/ (root)`, then save.
