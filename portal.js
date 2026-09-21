@@ -50,14 +50,33 @@ upload.addEventListener("change", async event => {
 function rows(workbook, sheetName) {
   const sheet = workbook.Sheets[sheetName];
 
+  if (!sheet) return [];
+
   /*
-    RouteTwin workbooks use rows 1–4 for titles and guidance.
-    The actual column headings begin on row 5.
+    Find the row containing the real headings.
+    This means the portal still works if title rows
+    or instructions are above the table.
   */
-  return sheet
+  const rawRows = XLSX.utils.sheet_to_json(sheet, {
+    header: 1,
+    defval: ""
+  });
+
+  const headings = {
+    "Locations": "Location ID",
+    "Routes & Lanes": "Lane ID",
+    "Inventory": "Inventory ID",
+    "Backup Options": "Backup ID"
+  };
+
+  const headingRow = rawRows.findIndex(row =>
+    row.includes(headings[sheetName])
+  );
+
+  return headingRow >= 0
     ? XLSX.utils.sheet_to_json(sheet, {
         defval: "",
-        range: 4
+        range: headingRow
       })
     : [];
 }
