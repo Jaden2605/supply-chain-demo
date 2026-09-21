@@ -32,6 +32,7 @@ upload.addEventListener("change", async event => {
 
   try {
     const data = await file.arrayBuffer();
+
     const workbook = XLSX.read(data, {
       type: "array",
       cellDates: true
@@ -49,8 +50,15 @@ upload.addEventListener("change", async event => {
 function rows(workbook, sheetName) {
   const sheet = workbook.Sheets[sheetName];
 
+  /*
+    RouteTwin workbooks use rows 1–4 for titles and guidance.
+    The actual column headings begin on row 5.
+  */
   return sheet
-    ? XLSX.utils.sheet_to_json(sheet, { defval: "" })
+    ? XLSX.utils.sheet_to_json(sheet, {
+        defval: "",
+        range: 4
+      })
     : [];
 }
 
