@@ -5,30 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RouteTwin Interactive Demo</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="v2.css" />
 </head>
 <body>
   <header>
-    <div>
-      <span class="brand-mark">◈</span>
-      <span class="brand">RouteTwin</span>
-      <span class="demo">INTERACTIVE DEMO</span>
-    </div>
-    <p>Aurora Electronics | fictional demonstration data</p>
+    <div><span class="brand-mark">◈</span><span class="brand">RouteTwin</span><span class="demo">INTERACTIVE DEMO</span></div>
+    <p id="companyLabel">Aurora Electronics | fictional demonstration data</p>
   </header>
-
   <main>
     <section class="hero">
-      <div>
-        <p class="eyebrow">Supply chain resilience simulator</p>
-        <h1>What happens when something breaks?</h1>
-        <p>Choose a disruption, see the effect on Aurora Electronics, and compare the safest way forward.</p>
-      </div>
-
-      <div class="score">
-        <span>Resilience score</span>
-        <strong id="score">86</strong>
-        <small id="scoreWord">Ready</small>
-      </div>
+      <div><p class="eyebrow">Supply chain resilience simulator</p><h1>What happens when something breaks?</h1><p>Choose a disruption, see the effect on Aurora Electronics, and compare the safest way forward.</p></div>
+      <div class="score"><span>Resilience score</span><strong id="score">86</strong><small id="scoreWord">Ready</small></div>
     </section>
 
     <section class="controls" aria-label="Simulation controls">
@@ -36,6 +23,25 @@
       <select id="scenarioSelect"></select>
       <button id="runButton" type="button">Run simulation</button>
       <button id="resetButton" class="secondary" type="button">Reset</button>
+    </section>
+
+    <section class="panel builder-panel" aria-label="Custom company builder">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Build your own version</p>
+          <h2>Change the company name</h2>
+        </div>
+        <p>Use a fictional company name for this public demo.</p>
+      </div>
+
+      <div class="builder-actions">
+        <label for="companyName">Company name</label>
+        <input id="companyName" type="text" maxlength="40" value="Aurora Electronics" placeholder="Example: Coastal Furniture" />
+        <button id="applyCompanyButton" type="button">Use this company</button>
+        <button id="downloadButton" class="secondary" type="button">Download report</button>
+      </div>
+
+      <p id="builderMessage" class="builder-message" aria-live="polite">Your demo currently uses Aurora Electronics.</p>
     </section>
 
     <section id="scenarioSummary" class="scenario-summary normal" aria-live="polite"></section>
@@ -103,6 +109,20 @@
         <li>RouteTwin marks the affected parts of the network and explains the likely impact.</li>
         <li>Compare response plans using time, cost, and risk, then choose the trade-off that fits the situation.</li>
       </ol>
+    </section>
+
+    <section class="panel history-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">Scenario history</p>
+          <h2>Recent simulations</h2>
+        </div>
+        <p>Run a scenario to save it here during this visit.</p>
+      </div>
+
+      <div id="scenarioHistory" class="history-list">
+        <p class="empty-history">No scenarios have been run yet.</p>
+      </div>
     </section>
   </main>
 
