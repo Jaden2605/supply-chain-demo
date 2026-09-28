@@ -4,11 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RouteTwin Interactive Demo</title>
-
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="v2.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="real-world-map.css" />
 </head>
 <body>
   <header>
@@ -67,8 +64,8 @@
       <section class="panel map-panel">
         <div class="panel-head">
           <div>
-            <p class="eyebrow">Interactive world map</p>
-            <h2>Zoom, drag, and click a location</h2>
+            <p class="eyebrow">Interactive network</p>
+            <h2>Click a location to inspect it</h2>
           </div>
 
           <div class="legend">
@@ -90,7 +87,7 @@
         <p class="eyebrow">Location details</p>
         <div id="nodeDetails">
           <h2>Choose a location</h2>
-          <p>Click any location on the map to see what it does in the supply chain.</p>
+          <p>Click any circle on the map to see what it does in the supply chain.</p>
         </div>
       </aside>
     </section>
@@ -149,7 +146,5 @@
   </footer>
 
   <script src="app.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="real-world-map.js"></script>
 </body>
 </html>
